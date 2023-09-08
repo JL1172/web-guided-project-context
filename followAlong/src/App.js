@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 
 import { data } from "./data";
 
 import FamilyTree from "./components/FamilyTree";
 import "./styles.scss";
+
+export const FamilyContext = createContext();
 
 export default function App() {
   const [families] = useState(data);
@@ -11,20 +13,22 @@ export default function App() {
 
   return (
     <div className="App">
-      <section className="header">
-        <h1>Family Trees</h1>
-        {families.map(family => (
-          <button
-            className={`family-button ${family.familyName ===
-              activeFamily.familyName && "active"}`}
-            key={family.familyName}
-            onClick={() => setActiveFamily(family)}
-          >
-            {family.familyName}
-          </button>
-        ))}
-      </section>
-      {activeFamily && <FamilyTree family={activeFamily} />}
+      <FamilyContext.Provider value={activeFamily}>
+        <section className="header">
+          <h1>Family Trees</h1>
+          {families.map(family =>  {
+             return <button
+              className={`family-button ${family.familyName ===
+                activeFamily.familyName && "active"}`}
+              key={family.familyName}
+              onClick={() => setActiveFamily(family)}
+            >
+              {family.familyName}
+            </button>
+})}
+        </section>
+        {activeFamily && <FamilyTree />}
+      </FamilyContext.Provider>
     </div>
   );
 }
