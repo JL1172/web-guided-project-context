@@ -5,11 +5,11 @@ import Siblings from "./Siblings";
 import { FamilyContext } from "../App";
 
 export default function FamilyTree(props) {
-  const family = useContext(FamilyContext);
+  const {activeFamily} = useContext(FamilyContext);
 
   return (
     <section className="FamilyTree">
-      <h1>{family.familyName}</h1>
+      <h1>{activeFamily.familyName}</h1>
       <h2>Parents</h2>
 
       {/* Pass data down as a prop */}
